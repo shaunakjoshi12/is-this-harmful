@@ -130,7 +130,7 @@ def main():
     # set cudnn benchmark
     if cfg.get('cudnn_benchmark', False):
         torch.backends.cudnn.benchmark = True
-    cfg.data.test.test_mode = True
+    #cfg.data.test.test_mode = True
 
     if cfg.test_cfg is None:
         cfg.test_cfg = dict(average_clips=args.average_clips)
@@ -182,9 +182,9 @@ def main():
     outputs_with_id = {a:b for a,b in zip(filenames,outputs)}
     rank, _ = get_dist_info()
     log_path = os.path.dirname(args.checkpoint)
-    result_file = log_path+"/train_preds.json"
-    result_with_id_file = log_path+"/train_preds_with_id.json"
-    log_file = log_path+"/train_log"
+    result_file = log_path+"/train_preds_epoch_19.json"
+    result_with_id_file = log_path+"/train_preds_with_id_epoch_19.json"
+    log_file = log_path+"/train_log_epoch_19"
     logger = get_logger(__name__,log_file=log_file)
 
     if rank == 0:

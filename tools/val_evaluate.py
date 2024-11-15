@@ -3,6 +3,7 @@ import os
 import os.path as osp
 import warnings
 
+import pdb
 import mmcv
 import torch
 from mmcv import Config, DictAction
@@ -130,7 +131,7 @@ def main():
     # set cudnn benchmark
     if cfg.get('cudnn_benchmark', False):
         torch.backends.cudnn.benchmark = True
-    cfg.data.test.test_mode = True
+    #cfg.data.test.test_mode = True
 
     if cfg.test_cfg is None:
         cfg.test_cfg = dict(average_clips=args.average_clips)
@@ -182,9 +183,9 @@ def main():
     outputs_with_id = {a:b for a,b in zip(filenames,outputs)}
     rank, _ = get_dist_info()
     log_path = os.path.dirname(args.checkpoint)
-    result_file = log_path+"/val_preds.json"
-    result_with_id_file = log_path+"/val_preds_with_id.json"
-    log_file = log_path+"/val_log"
+    result_file = log_path+"/val_preds_epoch_9.json"
+    result_with_id_file = log_path+"/val_preds_with_id_epoch_9.json"
+    log_file = log_path+"/val_log_epoch_9"
     logger = get_logger(__name__,log_file=log_file)
 
     if rank == 0:
@@ -192,6 +193,9 @@ def main():
             print(f'\nwriting results to {result_file}')
             dataset.dump_results(outputs, result_file)
             dataset.dump_results(outputs_with_id, result_with_id_file)
+        if eval_config:
+            eval_res = dataset.evaluate(outputs,metric_options=dict(top_k_accuracy=dict(topk=(1,2))), **eval_config,logger=logger)
+            print(f'Evaluation: {eval_res}')
 
 
 if __name__ == '__main__':

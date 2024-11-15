@@ -15,12 +15,13 @@ from .video_dataset import VideoDataset
 from .swe_trailers_dataset import SweTrailersDataset
 from .swe_trailers_fusion_dataset import SweTrailersFusionDataset
 from .swe_full_trailers_dataset import SweFullTrailersDataset
-
+from .swe_trailers_dataset_benchmark import SweTrailersBenchmarkDataset
+from .swe_trailers_fusion_dataset_benchmark import SweTrailersFusionBenchmarkDataset
 
 __all__ = [
     'VideoDataset', 'build_dataloader', 'build_dataset', 'RepeatDataset',
     'RawframeDataset', 'BaseDataset', 'ActivityNetDataset', 'SSNDataset',
     'HVUDataset', 'AudioDataset', 'AudioFeatureDataset', 'ImageDataset',
     'RawVideoDataset', 'AVADataset', 'AudioVisualDataset', 'SweTrailersDataset',
-    'SweTrailersFusionDataset', 'SweFullTrailersDataset'
+    'SweTrailersFusionDataset', 'SweFullTrailersDataset','SweTrailersBenchmarkDataset','SweTrailersFusionBenchmarkDataset'
 ]

@@ -1,5 +1,19 @@
+import pdb
 import numpy as np
+from sklearn.metrics import f1_score
 
+#Added by Shaunak
+def micro_f1_score(scores, y_real):
+    """
+    Calculate f1 score by default micro-averaging method
+    Args:
+        scores (list[np.ndarray]): Prediction scores for each class.
+        labels (list[int]): Ground truth labels.
+
+    """
+    y_preds = np.argmax(scores, axis=-1)
+    f1_micro = f1_score(y_real, y_preds, average='micro')
+    return f1_micro
 
 def confusion_matrix(y_pred, y_real, normalize=None):
     """Compute confusion matrix.
